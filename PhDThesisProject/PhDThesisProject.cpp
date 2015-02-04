@@ -3,24 +3,22 @@
 
 #include "stdafx.h"
 #include <iostream>
+#include "Header.h"
 #include "MyVector.h"
-#include "boost\multi_array.hpp"
+//#include "boost\multi_array.hpp"
+
+
+
 
 int main()
 {
 	using namespace std;
-	cout << "compiled, yay!" << endl;
 
-	MyVector test_array(1,1,1);
+	MyVector test(10, 10, 10);
 
-	cout << "Array size is:" << sizeof(MyVector) << " in Bytes." << endl;
-	cout << "1 float is size: " << sizeof(1.f) << " Bytes." << endl;
-	cout << "So, Array is, " << static_cast<float>(sizeof(MyVector) / sizeof(1.)) << " floats " << endl;
+	test.SetX(1, 1, 1, 10.0);
 
-	array_type output = test_array.GetX();
-	index i = 0;
-	cout << "Testing the array access functions:" << endl;
-	cout << "GetX() produces: " << output[i][i][i];
+	cout << "Value at [1][1][1] = " << (test.GetX())[1][1][1] << endl;
 
 	return 0;
 }

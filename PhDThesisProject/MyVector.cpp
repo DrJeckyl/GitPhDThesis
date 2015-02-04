@@ -1,39 +1,35 @@
 #pragma once
-#include "stdafx.h"
+//#include "stdafx.h"
 #include "Header.h"
 #include "MyVector.h"
+//#include "boost/multi_array.hpp"
 
-MyVector::MyVector()
+//This is a list initialization...apparently
+MyVector::MyVector(int nX, int nY, int nZ) :
+m_X(boost::extents[nX][nY][nZ]),
+m_Y(boost::extents[nX][nY][nZ]),
+m_Z(boost::extents[nX][nY][nZ])
 {
-	m_nX = 0;
-	m_nX = 0;
-	m_nZ = 0;
 }
 
-MyVector::MyVector(int nX, int nY, int nZ)
+void MyVector::SetX(int ii, int jj, int kk, float value)
 {
-	//Define the shape of the array, [nx, ny, nz]
-	m_nX = nX;
-	m_nX = nY;
-	m_nZ = nZ;
+	m_X[ii][jj][kk] = value;
+}
 
-	//Allocate the array according to the boost multi_array
-	array_type m_fX(boost::extents[nX][nY][nZ]);
-	array_type m_fY(boost::extents[nX][nY][nZ]);
-	array_type m_fZ(boost::extents[nX][nY][nZ]);
+/*MyVector::MyVector(int nX, int nY, int nZ)
+{
+	m_nX = nX;
+	m_nY = nY;
+	m_nZ = nZ;
 
 	//initialize to zero
 	for (index ii = 0; ii != nX; ++ii)
 		for (index jj = 0; jj != nY; ++jj)
 			for (index kk = 0; kk != nZ; ++kk)
 			{
-				m_fX[ii][jj][kk] = 0.f;
-				m_fY[ii][jj][kk] = 0.f;
-				m_fZ[ii][jj][kk] = 0.f;
+				m_X[ii][jj][kk] = 0;
+				m_Y[ii][jj][kk] = 0;
+				m_Z[ii][jj][kk] = 0;
 			}
-}
-
-
-MyVector::~MyVector()
-{
-}
+}*/
