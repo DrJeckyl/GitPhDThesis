@@ -1,38 +1,64 @@
 #pragma once
-#include "Header.h"
-#include "boost/multi_array.hpp"
+#include "array3d.h"
 
-
+//This class will be a container for the 3D arrays created by array3d
 class MyVector
 {
 private:
-	//Shape of the arrays
-	int m_nX;
-	int m_nY;
-	int m_nZ;
-
-	//This is a list initialization...apparently
-	/*MyVector(int nX, int nY, int nZ) :
-		m_X(boost::extents[nX][nY][nZ]),
-		m_Y(boost::extents[nX][nY][nZ]),
-		m_Z(boost::extents[nX][nY][nZ])
-	{
-	}*/
+	//Forward declare the arrays?
+	array3d m_fX;
+	array3d m_fY;
+	array3d m_fZ;
 public:
+	//Default Constuctor
+	MyVector();
+	//Forward declare the constuctor
 	MyVector(int, int, int);
-	array_type m_X;
-	array_type m_Y;
-	array_type m_Z;
 
-	//MyVector(){} // Default Constructor
+	//Declare the copy constructor
+	//MyVector(const MyVector &cSource);
 
-	
-	//Access functions
-	array_type GetX(){ return m_X; }
-	array_type GetY(){ return m_Y; }
-	array_type GetZ(){ return m_Z; }
+	//assignment operator overload
+	//MyVector &operator=(const MyVector &cSource);
 
-	void SetX(int, int, int, float);
+	//Access function
+	//Return single point
+	float &x(const int, const int, const int);
+	float &y(const int, const int, const int);
+	float &z(const int, const int, const int);
+	//Return an array3d object
+	array3d &x(){ return m_fX; };
+	array3d &y(){ return m_fY; };
+	array3d &z(){ return m_fZ; };
 
+	//Overload ALL THE OPERATORS
+
+	//First define how to +,-,*,/ Vectors (elementwise)
+	friend MyVector operator+(MyVector &cLeft, MyVector &cRight);
+	friend MyVector operator-(MyVector &cLeft, MyVector &cRight);
+	friend MyVector operator*(MyVector &cLeft, MyVector &cRight);
+	friend MyVector operator/(MyVector &cLeft, MyVector &cRight);
+
+	//Next, define +,-,*,/ to array3d objects to MyVector
+	friend MyVector operator+(MyVector &cLeft, array3d &cRight);
+	friend MyVector operator-(MyVector &cLeft, array3d &cRight);
+	friend MyVector operator*(MyVector &cLeft, array3d &cRight);
+	friend MyVector operator/(MyVector &cLeft, array3d &cRight);
+
+	friend MyVector operator+(array3d &cLeft, MyVector &cRight);
+	friend MyVector operator-(array3d &cLeft, MyVector &cRight);
+	friend MyVector operator*(array3d &cLeft, MyVector &cRight);
+	friend MyVector operator/(array3d &cLeft, MyVector &cRight);
+
+	//Now define +,-,*,/ for floats and MyVector
+	friend MyVector operator+(MyVector &cLeft, float fRight);
+	friend MyVector operator-(MyVector &cLeft, float fRight);
+	friend MyVector operator*(MyVector &cLeft, float fRight);
+	friend MyVector operator/(MyVector &cLeft, float fRight);
+
+	friend MyVector operator+(float fLeft, MyVector &cRight);
+	friend MyVector operator-(float fLeft, MyVector &cRight);
+	friend MyVector operator*(float fLeft, MyVector &cRight);
+	friend MyVector operator/(float fLeft, MyVector &cRight);
 };
 

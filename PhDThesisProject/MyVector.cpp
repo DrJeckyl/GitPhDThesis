@@ -1,35 +1,224 @@
 #pragma once
 //#include "stdafx.h"
-#include "Header.h"
 #include "MyVector.h"
-//#include "boost/multi_array.hpp"
+#include "array3d.h"
 
-//This is a list initialization...apparently
-MyVector::MyVector(int nX, int nY, int nZ) :
-m_X(boost::extents[nX][nY][nZ]),
-m_Y(boost::extents[nX][nY][nZ]),
-m_Z(boost::extents[nX][nY][nZ])
+//Default Constuctor
+MyVector::MyVector(){};
+
+//Use an initialization list to set the 3D arrays
+MyVector::MyVector(int nx, int ny, int nz) :
+m_fX(nx, ny, nz),
+m_fY(nx, ny, nz),
+m_fZ(nx, ny, nz)
+{};
+
+//Copy Constructor
+/*MyVector::MyVector(const MyVector &cSource)
 {
-}
 
-void MyVector::SetX(int ii, int jj, int kk, float value)
-{
-	m_X[ii][jj][kk] = value;
-}
-
-/*MyVector::MyVector(int nX, int nY, int nZ)
-{
-	m_nX = nX;
-	m_nY = nY;
-	m_nZ = nZ;
-
-	//initialize to zero
-	for (index ii = 0; ii != nX; ++ii)
-		for (index jj = 0; jj != nY; ++jj)
-			for (index kk = 0; kk != nZ; ++kk)
-			{
-				m_X[ii][jj][kk] = 0;
-				m_Y[ii][jj][kk] = 0;
-				m_Z[ii][jj][kk] = 0;
-			}
 }*/
+
+float &MyVector::x(const int ii, const int jj, const int kk)
+{
+	return m_fX(ii, jj, kk);
+}
+
+float &MyVector::y(const int ii, const int jj, const int kk)
+{
+	return m_fY(ii, jj, kk);
+}
+
+float &MyVector::z(const int ii, const int jj, const int kk)
+{
+	return m_fZ(ii, jj, kk);
+}
+
+/**********************************************************************************/
+/*                  OPERATOR OVERLOADING                                          */
+
+//MyVector with MyVector
+//Note, the divide by zero will be caught by the / operator for array3d
+//Bound checking will be done by array3d as well
+MyVector operator+(MyVector &cLeft, MyVector &cRight)
+{
+	MyVector result = cLeft;
+	result.x() = cLeft.x() + cRight.x();
+	result.y() = cLeft.y() + cRight.y();
+	result.z() = cLeft.z() + cRight.z();
+	return result;
+}
+
+MyVector operator-(MyVector &cLeft, MyVector &cRight)
+{
+	MyVector result = cLeft;
+	result.x() = cLeft.x() - cRight.x();
+	result.y() = cLeft.y() - cRight.y();
+	result.z() = cLeft.z() - cRight.z();
+	return result;
+}
+
+MyVector operator*(MyVector &cLeft, MyVector &cRight)
+{
+	MyVector result = cLeft;
+	result.x() = cLeft.x() * cRight.x();
+	result.y() = cLeft.y() * cRight.y();
+	result.z() = cLeft.z() * cRight.z();
+	return result;
+}
+
+MyVector operator/(MyVector &cLeft, MyVector &cRight)
+{
+	MyVector result = cLeft;
+	result.x() = cLeft.x() / cRight.x();
+	result.y() = cLeft.y() / cRight.y();
+	result.z() = cLeft.z() / cRight.z();
+	return result;
+}
+
+//MyVector Left with array3d Right
+MyVector operator+(MyVector &cLeft, array3d &cRight)
+{
+	MyVector result = cLeft;
+	result.x() = cLeft.x() + cRight;
+	result.y() = cLeft.y() + cRight;
+	result.z() = cLeft.z() + cRight;
+	return result;
+}
+
+MyVector operator-(MyVector &cLeft, array3d &cRight)
+{
+	MyVector result = cLeft;
+	result.x() = cLeft.x() - cRight;
+	result.y() = cLeft.y() - cRight;
+	result.z() = cLeft.z() - cRight;
+	return result;
+}
+
+MyVector operator*(MyVector &cLeft, array3d &cRight)
+{
+	MyVector result = cLeft;
+	result.x() = cLeft.x() * cRight;
+	result.y() = cLeft.y() * cRight;
+	result.z() = cLeft.z() * cRight;
+	return result;
+}
+
+MyVector operator/(MyVector &cLeft, array3d &cRight)
+{
+	MyVector result = cLeft;
+	result.x() = cLeft.x() / cRight;
+	result.y() = cLeft.y() / cRight;
+	result.z() = cLeft.z() / cRight;
+	return result;
+}
+
+//array3d Left with MyVector Right
+MyVector operator+(array3d &cLeft, MyVector &cRight)
+{
+	MyVector result = cRight;
+	result.x() = cLeft + cRight.x();
+	result.y() = cLeft + cRight.y();
+	result.z() = cLeft + cRight.z();
+	return result;
+}
+MyVector operator-(array3d &cLeft, MyVector &cRight)
+{
+	MyVector result = cRight;
+	result.x() = cLeft - cRight.x();
+	result.y() = cLeft - cRight.y();
+	result.z() = cLeft - cRight.z();
+	return result;
+}
+MyVector operator*(array3d &cLeft, MyVector &cRight)
+{
+	MyVector result = cRight;
+	result.x() = cLeft * cRight.x();
+	result.y() = cLeft * cRight.y();
+	result.z() = cLeft * cRight.z();
+	return result;
+}
+MyVector operator/(array3d &cLeft, MyVector &cRight)
+{
+	MyVector result = cRight;
+	result.x() = cLeft / cRight.x();
+	result.y() = cLeft / cRight.y();
+	result.z() = cLeft / cRight.z();
+	return result;
+}
+
+//Myvector Left with float Right
+
+MyVector operator+(MyVector &cLeft, float fRight)
+{
+	MyVector result = cLeft;
+	result.x() = cLeft.x() + fRight;
+	result.y() = cLeft.y() + fRight;
+	result.z() = cLeft.z() + fRight;
+	return result;
+}
+
+MyVector operator-(MyVector &cLeft, float fRight)
+{
+	MyVector result = cLeft;
+	result.x() = cLeft.x() - fRight;
+	result.y() = cLeft.y() - fRight;
+	result.z() = cLeft.z() - fRight;
+	return result;
+}
+
+MyVector operator*(MyVector &cLeft, float fRight)
+{
+	MyVector result = cLeft;
+	result.x() = cLeft.x() * fRight;
+	result.y() = cLeft.y() * fRight;
+	result.z() = cLeft.z() * fRight;
+	return result;
+}
+
+MyVector operator/(MyVector &cLeft, float fRight)
+{
+	MyVector result = cLeft;
+	result.x() = cLeft.x() / fRight;
+	result.y() = cLeft.y() / fRight;
+	result.z() = cLeft.z() / fRight;
+	return result;
+}
+
+//float Left with MyVector Right
+
+MyVector operator+(float fLeft, MyVector &cRight)
+{
+	MyVector result = cRight;
+	result.x() = fLeft + cRight.x();
+	result.y() = fLeft + cRight.y();
+	result.z() = fLeft + cRight.z();
+	return result;
+}
+
+MyVector operator-(float fLeft, MyVector &cRight)
+{
+	MyVector result = cRight;
+	result.x() = fLeft - cRight.x();
+	result.y() = fLeft - cRight.y();
+	result.z() = fLeft - cRight.z();
+	return result;
+}
+
+MyVector operator*(float fLeft, MyVector &cRight)
+{
+	MyVector result = cRight;
+	result.x() = fLeft * cRight.x();
+	result.y() = fLeft * cRight.y();
+	result.z() = fLeft * cRight.z();
+	return result;
+}
+
+MyVector operator/(float fLeft, MyVector &cRight)
+{
+	MyVector result = cRight;
+	result.x() = fLeft / cRight.x();
+	result.y() = fLeft / cRight.y();
+	result.z() = fLeft / cRight.z();
+	return result;
+}
