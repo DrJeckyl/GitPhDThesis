@@ -2,12 +2,14 @@
 #include "stdafx.h"
 #include "MyVector.h"
 #include "array3d.h"
+#include <tuple>
 
 //Default Constuctor
 MyVector::MyVector(){};
 
 //Use an initialization list to set the 3D arrays
 MyVector::MyVector(int nx, int ny, int nz) :
+m_nX(nx), m_nY(ny), m_nZ(nz),
 m_fX(nx, ny, nz),
 m_fY(nx, ny, nz),
 m_fZ(nx, ny, nz)
@@ -222,3 +224,29 @@ MyVector operator/(float fLeft, MyVector &cRight)
 	result.z() = fLeft / cRight.z();
 	return result;
 }
+
+
+
+//Dot and Cross Products
+
+//Dot Product takes 2 MyVectors as input
+//Returns the dot product as an array3d
+
+array3d dot(MyVector &cLeft, MyVector &cRight)
+{
+	//First check the array dimensions are compatible
+	assert(cLeft.Shape() == cRight.Shape());
+	
+	return cLeft.x()*cRight.x() + cLeft.y()*cRight.y() + cLeft.z()*cRight.z();
+}
+
+
+//Cross Product takes 2 MyVectors as input
+//Returns a MyVector
+
+//MyVector cross(MyVector &cLeft, MyVector &cRight)
+//{
+//	//First check the array dimensions are compatible
+//	assert(cLeft.Shape() == cRight.Shape());
+//
+//}

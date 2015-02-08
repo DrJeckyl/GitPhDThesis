@@ -4,8 +4,8 @@
 #include "Header.h"
 #include <string>
 #include <iostream>
-#include "MyVector.h"
-#include "array3d.h"
+//#include "MyVector.h"
+//#include "array3d.h"
 #include <tuple>
 
 //#pragma comment(lib, "vtkCommonCore-6.1.lib")
@@ -39,21 +39,25 @@ int main()
 
 	vtkAthena ATH(fname);
 
-	rho = ATH.GetRho();
-	//B = ATH.GetB();
+	//rho = ATH.GetRho();
+	B = ATH.GetB();
 	//U = ATH.GetU();
-	
+
+	//array1d test_avg = rho.avg();
+
+	cout << std::get<0>(B.Shape()) << endl;
+
 	//double fnum[] = {1, 2, 3, 4, 5, 6};
-	ofstream out(f2, ios::out | ios::binary);
-	if (!out) {
-		cout << "Cannot open file.";
-		return 1;
-	}
-	for (int ii = 0; ii < (rho.size()); ii++)
-	{
-		out << rho[ii];
-	}
-	out.close();
+	//ofstream out(f2, ios::out | ios::binary);
+	//if (!out) {
+	//	cout << "Cannot open file.";
+	//	return 1;
+	//}
+	//for (int ii = 0; ii < (rho.size()); ii++)
+	//{
+	//	out << rho[ii];
+	//}
+	//out.close();
 	return 0;
 }
 

@@ -1,4 +1,5 @@
 #pragma once
+#include "Header.h"
 #include <tuple>
 
 /*
@@ -14,6 +15,9 @@ private:
 
 	//Pointer to the array allocation
 	float *m_pfData;
+
+	//Horizontally averaged slice
+	array1d m_cAverage;
 
 public:
 	//Default array constructor
@@ -40,6 +44,10 @@ public:
 		std::tuple<int, int, int> shp (m_nX, m_nY, m_nZ);
 		return shp;
 	}
+
+	//Do a horizontal average
+	//The input here selects the dimension along which to project
+	array1d &avg();
 
 	//Overloaded () operator
 	float &operator()(const int, const int, const int);

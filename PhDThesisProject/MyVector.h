@@ -1,11 +1,17 @@
 #pragma once
 #include "stdafx.h"
 #include "array3d.h"
+#include <tuple>
 
 //This class will be a container for the 3D arrays created by array3d
 class MyVector
 {
 private:
+	//Array dimensions
+	int m_nX;
+	int m_nY;
+	int m_nZ;
+
 	//Forward declare the arrays?
 	array3d m_fX;
 	array3d m_fY;
@@ -31,6 +37,13 @@ public:
 	array3d &x(){ return m_fX; };
 	array3d &y(){ return m_fY; };
 	array3d &z(){ return m_fZ; };
+
+	//Return the shape as a 3-tuple
+	std::tuple<int, int, int> Shape()
+	{
+		std::tuple<int, int, int> shp(m_nX, m_nY, m_nZ);
+		return shp;
+	}
 
 	//Overload ALL THE OPERATORS
 
@@ -61,5 +74,15 @@ public:
 	friend MyVector operator-(float fLeft, MyVector &cRight);
 	friend MyVector operator*(float fLeft, MyVector &cRight);
 	friend MyVector operator/(float fLeft, MyVector &cRight);
+
+	//Define the dot and cross products as friends here
+	
+	//Dot product
+	//Takes 2 MyVectors and returns an array3d
+	friend array3d dot(MyVector &cLeft, MyVector &cRight);
+
+	//Cross product
+	//Takes 2 MyVectors and returns a MyVector
+	friend MyVector cross(MyVector &cLeft, MyVector &cRight);
 };
 
