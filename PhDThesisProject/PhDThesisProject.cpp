@@ -1,81 +1,59 @@
 // PhDThesisProject.cpp : Defines the entry point for the console application.
 //
-
 #include "stdafx.h"
+#include "Header.h"
+#include <string>
 #include <iostream>
 #include "MyVector.h"
 #include "array3d.h"
+#include <tuple>
 
+//#pragma comment(lib, "vtkCommonCore-6.1.lib")
+//#pragma comment(lib, "vtkIOLegacy-6.1.lib")
+//#pragma comment(lib, "vtkIOCore-6.1.lib")
+//#pragma comment(lib, "vtkCommonExecutionModel-6.1.lib")
 
+#include <vtkStructuredPointsReader.h>
+#include <vtkStructuredPoints.h>
+#include <vtkDataArray.h>
+#include <vtkCellData.h>
 
+#include "vtkAthena.h"
+
+#include <iostream>
+#include <fstream>
+#include <stdio.h>
 
 int main()
 {
 	using namespace std;
 
-	MyVector test(5, 5, 5);
+	//string fname = "D:\\Downloads\\strat128z4_HF\\Strat.1230.vtk";
 
-	test.x(1, 1, 1) = 10.;
+	char *fname = "D:\\Downloads\\strat128z4_HF\\Strat.1230.vtk";
+	char *f2 = "D:\\Downloads\\strat128z4_HF\\outfile.dat";
 
-	cout << "Value at [1][1][1] = " << test.x(1,1,1) << endl;
+	array3d rho;
+	MyVector B;
+	MyVector U;
 
-	cout << "Test 2 using array3d:" << endl;
+	vtkAthena ATH(fname);
+
+	rho = ATH.GetRho();
+	//B = ATH.GetB();
+	//U = ATH.GetU();
 	
-	array3d test1(5, 5, 5);
-	array3d test2(5, 5, 5);
-	test1(1, 1, 1) = 10.;
-	test2(1, 1, 1) = 5.0;
-
-	cout << "test2(1,1,1) should equal " << 5.0 << endl;
-	cout << "It actually equals: " << test2(1, 1, 1) << endl;
-
-	cout << "Now testing the overloading functions:" << endl;
-
-	array3d temp = test1 + test2;
-	
-	cout << test1(1,1,1) << " + " << test2(1,1,1) << " should equal 15 at (1,1,1): " << (test1 + test2)(1,1,1) << endl;
-	cout << "test1 - test2 should equal 5 at (1,1,1): " << (test1 - test2)(1, 1, 1) << endl;
-	cout << test1(1, 1, 1) << " * " << test2(1, 1, 1) << " should equal 50: " << (test1*test2)(1, 1, 1) << endl;
-	cout << test1(1, 1, 1) << " / " << test2(1, 1, 1) << " should equql 2: " << (test1 / test2)(1, 1, 1) << endl;
-	
-	cout << "Testing the floating point arithmetic:" << endl;
-	cout << test1(1,1,1) << " + 5 should equal 15: " << (test1 + 5)(1, 1, 1) << endl;
-	cout << test1(1, 1, 1) << " - 5 should equal 5: " << (test1 - 5)(1, 1, 1) << endl;
-	cout << test1(1, 1, 1) << " * 5 should equal 50: " << (test1 * 5)(1, 1, 1) << endl;
-	cout << test1(1, 1, 1) << " / 5 should equal 2: " << (test1 / 5)(1, 1, 1) << endl;
-
-	cout << "100 + " << test1(1, 1, 1) << " should equal 110: " << (100 + test1)(1, 1, 1) << endl;
-	cout << "100 - " << test1(1, 1, 1) << " should equal 90: " << (100 - test1)(1, 1, 1) << endl;
-	cout << "100 * " << test1(1, 1, 1) << " should equal 1000: " << (100 * test1)(1, 1, 1) << endl;
-	cout << "100 / " << test1(1, 1, 1) << " should equal 10: " << (100 / test1)(1, 1, 1) << endl;
-
-	cout << "Testing the copy functionality of MyVector:" << endl;
-
-	MyVector test3;
-	test3 = test;
-
-	cout << "test.x(1,1,1) should be = 10: " << test.x(1, 1, 1) << endl;
-
-	cout << "Testing MyVector overloads:" << endl;
-	cout << test.x(1, 1, 1) << " + " << test.x(1, 1, 1) << " = " << (test + test).x(1, 1, 1) << endl;
-	cout << test.x(1, 1, 1) << " - " << test.x(1, 1, 1) << " = " << (test - test).x(1, 1, 1) << endl;
-	cout << test.x(1, 1, 1) << " * " << test.x(1, 1, 1) << " = " << (test * test).x(1, 1, 1) << endl;
-	cout << test.x(1, 1, 1) << " / " << test.x(1, 1, 1) << " = " << (test / test).x(1, 1, 1) << endl;
-
-	cout << endl;
-
-	cout << test.x(1, 1, 1) << " + " << test1(1, 1, 1) << " = " << (test + test1).x(1, 1, 1) << endl;
-	cout << test.x(1, 1, 1) << " - " << test1(1, 1, 1) << " = " << (test - test1).x(1, 1, 1) << endl;
-	cout << test.x(1, 1, 1) << " * " << test1(1, 1, 1) << " = " << (test * test1).x(1, 1, 1) << endl;
-	cout << test.x(1, 1, 1) << " / " << test1(1, 1, 1) << " = " << (test / test1).x(1, 1, 1) << endl;
-
-	cout << endl;
-
-	cout << test.x(1, 1, 1) << " + " << 10 << " = " << (test + 10).x(1, 1, 1) << endl;
-	cout << test.x(1, 1, 1) << " - " << 10 << " = " << (test - 10).x(1, 1, 1) << endl;
-	cout << test.x(1, 1, 1) << " * " << 10 << " = " << (test * 10).x(1, 1, 1) << endl;
-	cout << test.x(1, 1, 1) << " / " << 10 << " = " << (test / 10).x(1, 1, 1) << endl;
-
+	//double fnum[] = {1, 2, 3, 4, 5, 6};
+	ofstream out(f2, ios::out | ios::binary);
+	if (!out) {
+		cout << "Cannot open file.";
+		return 1;
+	}
+	for (int ii = 0; ii < (rho.size()); ii++)
+	{
+		out << rho[ii];
+	}
+	out.close();
 	return 0;
 }
 

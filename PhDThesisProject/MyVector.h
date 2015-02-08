@@ -1,4 +1,5 @@
 #pragma once
+#include "stdafx.h"
 #include "array3d.h"
 
 //This class will be a container for the 3D arrays created by array3d
