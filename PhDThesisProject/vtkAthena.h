@@ -1,7 +1,6 @@
 #pragma once
 #include "vtkStructuredPointsReader.h"
-#include "array3d.h"
-#include "MyVector.h"
+#include "Header.h"
 
 class vtkAthena
 {
@@ -19,7 +18,7 @@ protected:
 
 public:
 	// Get density data from the vtk file and put it in a array3d object
-	array3d GetRho();
+	array1d GetRho();
 	// Get the cell_centered_B from the vtk file and store in the MyVector object
 	MyVector GetB();
 	// Get the velocity data from the vtk file and store in the MyVector object

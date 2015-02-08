@@ -4,20 +4,7 @@
 #include "Header.h"
 #include <string>
 #include <iostream>
-//#include "MyVector.h"
-//#include "array3d.h"
 #include <tuple>
-
-//#pragma comment(lib, "vtkCommonCore-6.1.lib")
-//#pragma comment(lib, "vtkIOLegacy-6.1.lib")
-//#pragma comment(lib, "vtkIOCore-6.1.lib")
-//#pragma comment(lib, "vtkCommonExecutionModel-6.1.lib")
-
-#include <vtkStructuredPointsReader.h>
-#include <vtkStructuredPoints.h>
-#include <vtkDataArray.h>
-#include <vtkCellData.h>
-
 #include "vtkAthena.h"
 
 #include <iostream>
@@ -33,19 +20,28 @@ int main()
 	char *fname = "D:\\Downloads\\strat128z4_HF\\Strat.1230.vtk";
 	char *f2 = "D:\\Downloads\\strat128z4_HF\\outfile.dat";
 
-	array3d rho;
-	MyVector B;
-	MyVector U;
+	//MyVector B;
+	//MyVector U;
 
-	vtkAthena ATH(fname);
+	//vtkAthena ATH(fname);
 
 	//rho = ATH.GetRho();
-	B = ATH.GetB();
+	//B = ATH.GetB();
 	//U = ATH.GetU();
 
 	//array1d test_avg = rho.avg();
 
-	cout << std::get<0>(B.Shape()) << endl;
+	array1d rho(5, 5, 5);
+	rho(1, 1, 1) = 10.;
+	cout << rho(1,1,1) << endl;
+
+	cout << (rho + 10)(1,1,1) << endl;
+
+	cout << (rho - 10)(1, 1, 1) << endl;
+
+	cout << (rho * 10)(1, 1, 1) << endl;
+
+	cout << (rho / 10)(1, 1, 1) << endl;
 
 	//double fnum[] = {1, 2, 3, 4, 5, 6};
 	//ofstream out(f2, ios::out | ios::binary);

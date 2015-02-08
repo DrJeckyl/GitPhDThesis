@@ -1,7 +1,6 @@
 #pragma once
 #include "stdafx.h"
-#include "MyVector.h"
-#include "array3d.h"
+#include "Header.h"
 #include <tuple>
 
 //Default Constuctor
@@ -79,7 +78,7 @@ MyVector operator/(MyVector &cLeft, MyVector &cRight)
 }
 
 //MyVector Left with array3d Right
-MyVector operator+(MyVector &cLeft, array3d &cRight)
+MyVector operator+(MyVector &cLeft, array1d &cRight)
 {
 	MyVector result = cLeft;
 	result.x() = cLeft.x() + cRight;
@@ -88,7 +87,7 @@ MyVector operator+(MyVector &cLeft, array3d &cRight)
 	return result;
 }
 
-MyVector operator-(MyVector &cLeft, array3d &cRight)
+MyVector operator-(MyVector &cLeft, array1d &cRight)
 {
 	MyVector result = cLeft;
 	result.x() = cLeft.x() - cRight;
@@ -97,7 +96,7 @@ MyVector operator-(MyVector &cLeft, array3d &cRight)
 	return result;
 }
 
-MyVector operator*(MyVector &cLeft, array3d &cRight)
+MyVector operator*(MyVector &cLeft, array1d &cRight)
 {
 	MyVector result = cLeft;
 	result.x() = cLeft.x() * cRight;
@@ -106,7 +105,7 @@ MyVector operator*(MyVector &cLeft, array3d &cRight)
 	return result;
 }
 
-MyVector operator/(MyVector &cLeft, array3d &cRight)
+MyVector operator/(MyVector &cLeft, array1d &cRight)
 {
 	MyVector result = cLeft;
 	result.x() = cLeft.x() / cRight;
@@ -116,7 +115,7 @@ MyVector operator/(MyVector &cLeft, array3d &cRight)
 }
 
 //array3d Left with MyVector Right
-MyVector operator+(array3d &cLeft, MyVector &cRight)
+MyVector operator+(array1d &cLeft, MyVector &cRight)
 {
 	MyVector result = cRight;
 	result.x() = cLeft + cRight.x();
@@ -124,7 +123,7 @@ MyVector operator+(array3d &cLeft, MyVector &cRight)
 	result.z() = cLeft + cRight.z();
 	return result;
 }
-MyVector operator-(array3d &cLeft, MyVector &cRight)
+MyVector operator-(array1d &cLeft, MyVector &cRight)
 {
 	MyVector result = cRight;
 	result.x() = cLeft - cRight.x();
@@ -132,7 +131,7 @@ MyVector operator-(array3d &cLeft, MyVector &cRight)
 	result.z() = cLeft - cRight.z();
 	return result;
 }
-MyVector operator*(array3d &cLeft, MyVector &cRight)
+MyVector operator*(array1d &cLeft, MyVector &cRight)
 {
 	MyVector result = cRight;
 	result.x() = cLeft * cRight.x();
@@ -140,7 +139,7 @@ MyVector operator*(array3d &cLeft, MyVector &cRight)
 	result.z() = cLeft * cRight.z();
 	return result;
 }
-MyVector operator/(array3d &cLeft, MyVector &cRight)
+MyVector operator/(array1d &cLeft, MyVector &cRight)
 {
 	MyVector result = cRight;
 	result.x() = cLeft / cRight.x();
@@ -232,7 +231,7 @@ MyVector operator/(float fLeft, MyVector &cRight)
 //Dot Product takes 2 MyVectors as input
 //Returns the dot product as an array3d
 
-array3d dot(MyVector &cLeft, MyVector &cRight)
+array1d dot(MyVector &cLeft, MyVector &cRight)
 {
 	//First check the array dimensions are compatible
 	assert(cLeft.Shape() == cRight.Shape());

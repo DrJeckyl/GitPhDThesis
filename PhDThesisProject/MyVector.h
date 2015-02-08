@@ -1,6 +1,6 @@
 #pragma once
 #include "stdafx.h"
-#include "array3d.h"
+#include "Header.h"
 #include <tuple>
 
 //This class will be a container for the 3D arrays created by array3d
@@ -13,9 +13,9 @@ private:
 	int m_nZ;
 
 	//Forward declare the arrays?
-	array3d m_fX;
-	array3d m_fY;
-	array3d m_fZ;
+	array1d m_fX;
+	array1d m_fY;
+	array1d m_fZ;
 public:
 	//Default Constuctor
 	MyVector();
@@ -34,9 +34,9 @@ public:
 	float &y(const int, const int, const int);
 	float &z(const int, const int, const int);
 	//Return an array3d object
-	array3d &x(){ return m_fX; };
-	array3d &y(){ return m_fY; };
-	array3d &z(){ return m_fZ; };
+	array1d &x(){ return m_fX; };
+	array1d &y(){ return m_fY; };
+	array1d &z(){ return m_fZ; };
 
 	//Return the shape as a 3-tuple
 	std::tuple<int, int, int> Shape()
@@ -54,15 +54,15 @@ public:
 	friend MyVector operator/(MyVector &cLeft, MyVector &cRight);
 
 	//Next, define +,-,*,/ to array3d objects to MyVector
-	friend MyVector operator+(MyVector &cLeft, array3d &cRight);
-	friend MyVector operator-(MyVector &cLeft, array3d &cRight);
-	friend MyVector operator*(MyVector &cLeft, array3d &cRight);
-	friend MyVector operator/(MyVector &cLeft, array3d &cRight);
+	friend MyVector operator+(MyVector &cLeft, array1d &cRight);
+	friend MyVector operator-(MyVector &cLeft, array1d &cRight);
+	friend MyVector operator*(MyVector &cLeft, array1d &cRight);
+	friend MyVector operator/(MyVector &cLeft, array1d &cRight);
 
-	friend MyVector operator+(array3d &cLeft, MyVector &cRight);
-	friend MyVector operator-(array3d &cLeft, MyVector &cRight);
-	friend MyVector operator*(array3d &cLeft, MyVector &cRight);
-	friend MyVector operator/(array3d &cLeft, MyVector &cRight);
+	friend MyVector operator+(array1d &cLeft, MyVector &cRight);
+	friend MyVector operator-(array1d &cLeft, MyVector &cRight);
+	friend MyVector operator*(array1d &cLeft, MyVector &cRight);
+	friend MyVector operator/(array1d &cLeft, MyVector &cRight);
 
 	//Now define +,-,*,/ for floats and MyVector
 	friend MyVector operator+(MyVector &cLeft, float fRight);
@@ -79,7 +79,7 @@ public:
 	
 	//Dot product
 	//Takes 2 MyVectors and returns an array3d
-	friend array3d dot(MyVector &cLeft, MyVector &cRight);
+	friend array1d dot(MyVector &cLeft, MyVector &cRight);
 
 	//Cross product
 	//Takes 2 MyVectors and returns a MyVector

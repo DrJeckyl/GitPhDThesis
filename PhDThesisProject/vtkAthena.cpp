@@ -27,10 +27,10 @@ vtkAthena::~vtkAthena()
 
 
 // Get density data from the vtk file and put it in a array3d object
-array3d vtkAthena::GetRho()
+array1d vtkAthena::GetRho()
 {
 	//allocate the 3d array to hold the density
-	array3d rho(m_nX, m_nY, m_nZ);
+	array1d rho(m_nX, m_nY, m_nZ);
 
 	//Index as 1D array, since that's how vtk stores the data
 	for (int ii = 0; ii < (m_nX*m_nY*m_nZ); ii++)
